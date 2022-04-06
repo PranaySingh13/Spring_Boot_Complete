@@ -1,0 +1,225 @@
+=====================
+What is REST ?
+=====================
+It is software architectural style to guide the design of architecture of web.
+REST-Representational State Transfer
+i.e;
+Transfer data between parties in any format json/xml.
+
+=====================
+REST Guidelines/REST Architecture Constraints
+=====================
+1. Client-Server Architecture
+
+client and server should be independent entities.
+
+2. Stateless
+Server should be stateless that it should not store any data.client will store data.
+
+3. Cacheable
+Same data can be stored in cache and can be reuse.
+performance will increase as transacting data operations from database again and again will reduce.
+
+4. Layered System
+We have to create layered architecture that improves scalability and will help in load balancing.
+
+5. Uniform Interface
+Client server interactions should be unified way.
+
+6. Code on Demand(Optional)
+On Run-time code on demand from client can be executed from server.
+
+=====================
+REST Concepts
+=====================
+1. Resource
+Anything that we want to expose to outside world, through our applications.
+Ex:- Student,Teacher,Class,Subject etc. are the resources for Library Management System 
+
+2.URI(Uniform Resource Identifier)
+URI is to identify the resource.
+Ex:
+GET -----> http://localhost:8080/students/ ----> Return the list of students.
+
+GET -----> http://localhost:8080/student/13 ----> Return the student of id 13.
+
+POST-----> http://localhost:8080/students/create ----> Create a new student.
+
+UPDATE -----> http://localhost:8080/student/update/13 ----> Update a student of id 13.
+
+DELETE-----> http://localhost:8080/student/delete/13 ----> Delete a  student of id 13.
+
+3.Sub-resource
+It is mainly dependent of main URI Resource.
+Ex:- Student->Laptops
+GET -----> http://localhost:8080/students/laptops ----> Return the list laptops of students.
+
+GET -----> http://localhost:8080/student/13/laptops ----> Return the list of laptop student of id 13.
+
+4.HTTP(Hyper Text Transfer Protocol) Request Methods
+HTTP defines a set of request methods to indicate the desired action to be performed for a given resource.
+HTTP Methods:-
+GET-> Get the resource
+POST->Create the resource
+PUT->Update the resource
+DELETE->Delete the resource
+
+5. HTTP Response Codes
+HTTp response status codes indicate whether a specific HTTP request has been successfully completed.
+
+200 OK ---->Request is successfull.
+200 Created ---->Request is successfull and new resource is created.
+401 Unauthorised ---->Authentication is required for resource.
+404 Not Found ---->Resource not found.
+500 Internal Server Error ---->Error orrcured on server and request can not be fullfiled.
+
+=====================
+Client Requirements For Project
+=====================
+1. Client wants blogging application where he/she/user can write blogs and articles.
+2.We have to build simple blogging applications:-
+	2.1 User should create, update, delete and list posts.
+	2.2 User should add,update,delete comments on posts.
+	2.3 Categories the post according to categories.
+	2.4 New User should be able to register on our application.
+	2.5 User should be able to login to our application.
+	2.6 Blog/Post includes one or many picture too.
+
+====Technical Terms====
+1. Proper Login, Register, POST and comment API.
+2. Posts API includes Pagination and Sorting.
+3. Proper user input validation handling.
+4. Proper Exception Handling.
+5. Role based authentication-role based security with APIs
+	Ex:ADMIN, User
+6. JWT(JSON Web Token) Based Authentication
+7. Document all rest apis so that consumer can easy understand with the help of swagger.
+8. Deploy the backend application on any cloud platform(AWS).
+
+======Technologies======
+Language:- Java 8
+Framework:-Spring Boot
+Build Tool:- Maven/Gradle
+IDE:- STS/IntelliJ
+Server:- Apache Tomcat(Embedded in Spring Boot)
+Spring Concepts:- Core, JWT, Data JPA etc.
+ORM:- Hibernate(Database Independent)
+Cloud:- AWS(Amazon Web Services) EC2 Instance
+Database:- MySQL
+API Testing :- Postman Rest Client
+API Documentation :- Swagger
+Test Cases:- Mocikto
+
+=====================
+Finding Resource For Project
+=====================
+1. User
+2. Category
+3. Post
+4. Comment
+5. Tag(Optional)
+
+
+====Best Architecture while using Spring Boot for Backend====
+We will use Layered Architecture
+Postman(Client)<->Controller<->Services<->Repositories<->Database
+
+Controller Layer ---> API Layer
+Services Layer ---> Business Logic
+Repository Layer ----> Dao Layer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
