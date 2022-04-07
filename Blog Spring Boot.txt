@@ -128,6 +128,56 @@ Controller Layer ---> API Layer
 Services Layer ---> Business Logic
 Repository Layer ----> Dao Layer
 
+=====================
+How Database Structure looks like for Blogging Application
+=====================
+Download Draw.io software in your system.
+We are designing ER Visual Diagram for our entities on Draw.io
+https://app.diagrams.net/ 
+
+=====================
+Difference Between Entity vs DTO/model
+=====================
+
+Entity is class mapped to table. Dto is class mapped to "view" layer mostly. What needed to store is entity & which needed to 'show' on web page is DTO.
+
+
+For Calling JPA repository methods we need entities object but we are getting DTO objects. THerefore We will convert UserDto to User Object.
+
+For Response we need the DTO objects but we are getting response in Entitie from JPA repository methods. THerefore We will convert User to UserDto Object again.
+
+======================
+How we Autowired Interface ?
+======================
+	@Test
+	public void repositoryTest() {
+		String className = userRepo.getClass().getName();
+		String packageName = userRepo.getClass().getPackage().getName();
+		System.out.println(className);// com.sun.proxy.$Proxy101
+		System.out.println(packageName);// com.sun.proxy
+	}
+
+Question is How we are autowiring repository interface if we are not implementing Implementation class for repo ?
+So, When we use autowired Repository in other layer then the object is created of Proxy101 i.e; the repository implementation class name which is created dynamically at runtime by spring container.Whenever Spring project starts the repository interfaces are scanned by spring container and their respective runtime dyanamic implementation class is created in a package.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
