@@ -9,7 +9,7 @@ public interface UserService {
 
 	UserDto createUser(UserDto user);
 
-	UserDto getUserById(UserDto user, Integer userId) throws ResourceNotFoundException;
+	UserDto getUserById(Integer userId) throws ResourceNotFoundException;
 
 	UserDto updateUser(UserDto user, Integer userId) throws ResourceNotFoundException;
 
