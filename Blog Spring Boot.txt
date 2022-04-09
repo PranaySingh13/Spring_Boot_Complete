@@ -160,6 +160,23 @@ How we Autowired Interface ?
 Question is How we are autowiring repository interface if we are not implementing Implementation class for repo ?
 So, When we use autowired Repository in other layer then the object is created of Proxy101 i.e; the repository implementation class name which is created dynamically at runtime by spring container.Whenever Spring project starts the repository interfaces are scanned by spring container and their respective runtime dyanamic implementation class is created in a package.
 
+=====================
+Why ModelMapper?
+=====================
+The goal of ModelMapper is to make object mapping easy, by automatically determining how one object model maps to another, based on conventions, in the same way that a human would - while providing a simple, refactoring-safe API for handling specific use cases.
+
+/*
+	 * Spring Container creates the object of this ModelMapper class when we
+	 * autowired this class in our other classes.
+	 * 
+	 * Basically used to convert the class object into another class object
+	 * condition source and destination class properties match based on their name.
+	 */
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
+	}
+
 
 
 
