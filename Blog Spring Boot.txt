@@ -176,6 +176,111 @@ The goal of ModelMapper is to make object mapping easy, by automatically determi
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
 	}
+=====================
+Bean Validator
+=====================
+
+Basics of Validation
+1. Java Bean is validated with JSR 380 known as Bean Validation 2.0.
+2. JSR 380 is specification for the Java API for bean validation. 	Properties of bean meet the specific criteria.
+3. For validation different annotations is used like @NotNull, @Min, @Size etc.
+4. Hibernate Validator is a implementation of Validation API.
+
+Important Annotations for Validations
+
+@NotNull
+@Size
+@Email
+@Min
+@Max
+@NotEmpty
+etc.
+
+How to Use:
+1.
+Add new Spring Boot Version have dependency in pom.xml.
+Spring boot provides support for Hibernate Validator.
+<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-validation</artifactId>
+    <version>2.6.6</version>
+</dependency>
+
+2. 
+Apply validation api annotations to Dto which is coming as payload from user.
+
+@NotNull: The CharSequence, Collection, Map or Array object is not null, but can be empty.
+@NotEmpty: The CharSequence, Collection, Map or Array object is not null and size > 0.
+@NotBlank: The string is not null and the trimmed length is greater than zero.
+
+Here are a few examples:
+
+String name = null;
+@NotNull: false
+@NotEmpty: false
+@NotBlank: false
+
+String name = "";
+@NotNull: true
+@NotEmpty: false
+@NotBlank: false
+
+String name = " ";
+@NotNull: true
+@NotEmpty: true
+@NotBlank: false
+
+String name = "Great answer!";
+@NotNull: true
+@NotEmpty: true
+@NotBlank: true
+
+Perfect Email Pattern:- @Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$")
+
+Password Patterns:-
+Secure Password requirements
+
+Password must contain at least one digit [0-9].
+Password must contain at least one lowercase Latin character [a-z].
+Password must contain at least one uppercase Latin character [A-Z].
+Password must contain at least one special character like ! @ # & ( ).
+Password must contain a length of at least 8 characters and a maximum of 20 characters.
+Below is the regex that matches all the above requirements.
+
+^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$
+
+Regex password explanation
+
+^                                   # start of line
+  (?=.*[0-9])                       # positive lookahead, at least one digit [0-9]
+  (?=.*[a-z])                       # positive lookahead, at least one lowercase character [a-z]
+  (?=.*[A-Z])                       # positive lookahead, at least one uppercase character [A-Z]
+  (?=.*[!@#&()–[{}]:;',?/*~$^+=<>]) # positive lookahead, at least one of the special character in this [..]
+  .                                 # matches anything
+  {8,20}                            # length at least 8 characters and maximum of 20 characters
+$                                   # end of line
+
+3. 
+For which api you have to perform validation, add @Valid annotation in respective controller API method argument.
+
+
+
+4. 
+Handle validation exceptions globally for message formatting
+@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<Map<String, String>> handleMethodArgsNotValidException(MethodArgumentNotValidException ex) {
+		Map<String, String> response = new HashMap<>();
+		ex.getBindingResult().getAllErrors().forEach(error -> {
+			String fieldName = ((FieldError) error).getField();
+			String message = error.getDefaultMessage();
+
+			response.put(fieldName, message);
+		});
+
+		return new ResponseEntity<Map<String, String>>(response, HttpStatus.BAD_REQUEST);
+	}
+
 
 
 
