@@ -1,0 +1,46 @@
+Spring Boot Annotations
+==========================
+A. 
+==========================
+@SpringBootApplication:- It is a combination of three annotations @EnableAutoConfiguration, @ComponentScan, and @Configuration.
+
+	1.@EnableAutoConfiguration: It auto-configures the bean that is present in the classpath and configures it to run the methods.
+
+	2.@ComponentScan: It is used when we want to scan a package for beans. It is used with the annotation @Configuration. We can also specify the base packages to scan for Spring Components.
+
+	3.@Configuration: It is a class-level annotation. The class annotated with @Configuration used by Spring Containers as a source of bean definitions.
+
+==========================
+B. Stereotype Annotations
+==========================
+	1.@Component: It is a class-level annotation. It is used to mark a Java class as a bean. A Java class annotated with @Component is found during the classpath. The Spring Framework pick it up and configure it in the application context as a Spring Bean.
+
+	2.@Controller: The @Controller is a class-level annotation. It is a specialization of @Component. It marks a class as a web request handler. It is often used to serve web pages.
+
+	3.@Service: It is also used at class level. It tells the Spring that class contains the business logic.
+
+	4.@Repository: It is a class-level annotation. The repository is a DAOs (Data Access Object) that access the database directly. The repository does all the operations related to the database.
+
+==========================
+C. Spring Core Related Annotations
+==========================
+	1.@Configuration: It is a class-level annotation. The class annotated with @Configuration used by Spring Containers as a source of bean definitions.
+
+	2.@Bean: It is a method-level annotation. It is an alternative of XML <bean> tag. It tells the method to produce a bean to be managed by Spring Container.
+
+	3.@Autowired: Spring provides annotation-based auto-wiring by providing @Autowired annotation. It is used to autowire spring bean on setter methods, instance variable, and constructor. When we use @Autowired annotation, the spring container auto-wires the bean by matching data-type.
+
+	4.@Qualifier: There may be a situation when you create more than one bean of the same type and want to wire only one of them with a property. In such cases, @Qualifier indicates specific bean should be autowired when there are multiple bean of the same type.
+
+	5.@Primary: indicates that a bean should be given preference when multiple candidates are qualified to autowire a single-valued dependency.
+
+	6.@Lazy: 
+	7.@Value
+	8.@PropertySource
+	9.@ConfigurationProperties
+	10.@Profile
+	11.@Scope
+	12.@Primary
+
+
+
