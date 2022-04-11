@@ -34,13 +34,169 @@ C. Spring Core Related Annotations
 
 	5.@Primary: indicates that a bean should be given preference when multiple candidates are qualified to autowire a single-valued dependency.
 
-	6.@Lazy: 
-	7.@Value
-	8.@PropertySource
-	9.@ConfigurationProperties
-	10.@Profile
-	11.@Scope
-	12.@Primary
+	6.@Lazy: Spring Boot default do Eager Loading concept that is it will creating objects and loading all the beans of Spring IOC container. @Lazy is used when you don't want to load your bean and create a object for your bean at time of building spring application by Spring IOC container. The Bean annotated with @Lazy will load or create object by IOC container only when it's object is autowired in some other classes.
+	
+	7.@Value: The annotation @Value is used to automatically assign a value from multiple environment such as spring environment, system environment, property files, bean objects, default value etc. The annotation @Value in spring boot is commonly used to inject the configuration values to the spring boot application.It will default check from application.properties.
+	
+	8.@PropertySource: It is used to declare a set of custom properties file(defined in a properties file in application classpath) in Spring run-time Environment, providing flexibility to have different values in different application environments.
+@PropertySource(value = { "classpath:custom.properties" })
+
+	9.@ConfigurationProperties: The official documentation advises that we isolate configuration properties into separate POJOs.
+IN POJO, use @Configuration so that Spring creates a Spring bean in the application context.@ConfigurationProperties works best with hierarchical properties that all have the same prefix.
+
+	10.@Profile: A profile is a set of configuration settings. Spring Boot allows to define profile specific property files in the form of application-{profile}. properties . It automatically loads the properties in an application. Other than creating environment specific files mention spring.profiles.active={profile} in application.properties main file to call profile specific environment application properties file.
+
+======================
+D. REST API related Annotations
+======================
+
+	1.@RestController: It can be considered as a combination of @Controller and @ResponseBody annotations. The @RestController annotation is itself annotated with the @ResponseBody annotation. It eliminates the need for annotating each method with @ResponseBody.
+
+	2.@RequestMapping: It is used to map the web requests. It has many optional elements like consumes, header, method, name, params, path, produces, and value. We use it with the class as well as the method.
+
+	3.@GetMapping: It maps the HTTP GET requests on the specific handler method. It is used to create a web service endpoint that fetches It is used instead of using: @RequestMapping(method = RequestMethod.GET).
+
+	4.@PostMapping: It maps the HTTP POST requests on the specific handler method. It is used to create a web service endpoint that creates It is used instead of using: @RequestMapping(method = RequestMethod.POST).
+
+	5.@PutMapping: It maps the HTTP PUT requests on the specific handler method. It is used to create a web service endpoint that creates or updates It is used instead of using: @RequestMapping(method = RequestMethod.PUT).
+
+	6.@DeleteMapping: It maps the HTTP DELETE requests on the specific handler method. It is used to create a web service endpoint that deletes a resource. It is used instead of using: @RequestMapping(method = RequestMethod.DELETE).
+
+	7.@RequestBody: It is used to bind HTTP request with an object in a method parameter. Internally it uses HTTP MessageConverters to convert the body of the request. When we annotate a method parameter with @RequestBody, the Spring framework binds the incoming HTTP request body to that parameter.
+
+	8.@ResponseBody: It binds the method return value to the response body. It tells the Spring Boot Framework to serialize a return an	object into JSON and XML format.
+
+	8.@PathVariable: It is used to extract the values from the URI. It is most suitable for the RESTful web service, where the URL contains a path variable. We can define multiple @PathVariable in a method.
+
+	9.@RequestParam: It is used to extract the query parameters form the URL. It is also known as a query parameter. It is most suitable for web applications. It can specify default values if the query parameter is not present in the URL.That is we will not get 404 error that the server cannot find the requested resource.That is if parameter is optional in URL use @RequestParam.
+
+	10.@ControllerAdvice is a specialization of the @Component annotation which allows to handle exceptions across the whole application in one global handling component. It can be viewed as an interceptor of exceptions thrown by methods annotated with @RequestMapping and similar.
+@RestControllerAdvice=@ControllerAdvice+@ResponseBody.
+
+	11.@ExceptionHandler annotation indicates which type of Exception we want to handle. The exception instance and the request will be injected via method arguments. By using two annotations @ControllerAdvice and @ExceptionHandler together, we can: control the body of the response along with status code.
+
+=======================
+E. Spring Data JPA related Annotations
+=======================
+
+	1.@Entity: The @Entity annotation specifies that the class is an entity and is mapped to a database table.
+
+	2.@Table: The @Table annotation specifies the name of the database table to be used for mapping.
+
+	3.@Column: @Column annotation is used for Adding the column the name in the table of a particular database.
+
+	4.@Transactional: When we want to configure the transactional behavior of a method, we can do it with this annotation.
+
+	5.@Id: @Id marks a field in a model class as the primary key.
+
+	6.@Query: With @Query, we can provide a JPQL implementation for a repository method.
+
+	7.@EnableJpaRepositories: To use JPA repositories, we have to indicate it to Spring. We can do this with @EnableJpaRepositories.
+Note, that we have to use this annotation with @Configuration:
+
+@Configuration
+@EnableJpaRepositories
+class PersistenceJPAConfig {}
+
+	Entity class relationships
+	1.@onetoOne
+	2.@onetoMany
+	1.@ManytoOne
+	1.@ManytoMany
+
+===========================
+F. Spring Security Related Annotations
+===========================
+
+	1.@CrossOrigin
+	2.@Secured
+	3.@PreAuthorize
+	4.@PermitAll
+
+===========================
+G. Spring Caching related Annotations
+===========================
+	
+	1.@EnableCaching
+	2.@Cacheable
+	3.@CachePut
+	4.@CacheEvict
+
+===========================
+H. Spring AOP(Aspect Oriented Programming)
+===========================
+
+	1.@ASpect
+	2.@Pointcut
+	3.@AfterRunning
+	4.@BeforeRunning
+	5.@Around
+	6.@Before
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

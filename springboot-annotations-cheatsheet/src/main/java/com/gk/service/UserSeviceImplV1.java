@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gk.entity.User;
 import com.gk.repository.UserRepository;
@@ -22,6 +23,7 @@ public class UserSeviceImplV1 implements UserService {
 		return "UserSeviceImplV1";
 	}
 
+	@Transactional
 	@Override
 	public User createUser(User user) {
 		User newUser = userRepo.save(user);
@@ -40,6 +42,7 @@ public class UserSeviceImplV1 implements UserService {
 		return user;
 	}
 
+	@Transactional
 	@Override
 	public User updateUser(User user) {
 
@@ -50,6 +53,7 @@ public class UserSeviceImplV1 implements UserService {
 		return updateUser;
 	}
 
+	@Transactional
 	@Override
 	public void deleteUser(int id) {
 		userRepo.deleteById(id);

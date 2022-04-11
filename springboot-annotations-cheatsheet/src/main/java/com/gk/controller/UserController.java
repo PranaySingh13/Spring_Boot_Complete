@@ -3,7 +3,6 @@ package com.gk.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gk.LazyLoadingBean;
+import com.gk.config.BeanConfig;
+import com.gk.config.ConfigProperties;
 import com.gk.entity.User;
 import com.gk.payloads.ApiResponse;
 import com.gk.service.UserService;
@@ -24,11 +26,23 @@ import com.gk.service.UserService;
 public class UserController {
 
 	@Autowired
-	//@Qualifier("UserSeviceImplV2")
+	// @Qualifier("UserSeviceImplV2")
 	private UserService userService;
-	
+
+	@Autowired
+	private LazyLoadingBean lazyLoadingBean;
+
+	@Autowired
+	private BeanConfig config;
+
+	@Autowired
+	private ConfigProperties configProperties;
+
 	@GetMapping("/")
-	public ResponseEntity<String> testingPriorityBean() {
+	public ResponseEntity<String> testingBean() {
+
+		System.out.println(configProperties);// ConfigProperties(HOST=test@gk.com, USERNAME=test@gk.com, PORT=8080)
+
 		return new ResponseEntity<String>(userService.getName(), HttpStatus.OK);
 	}
 
@@ -51,7 +65,7 @@ public class UserController {
 	public ResponseEntity<User> updateUser(@RequestBody User user) {
 		return new ResponseEntity<User>(userService.updateUser(user), HttpStatus.CREATED);
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<ApiResponse> deleteUserById(@PathVariable int id) {
 		userService.deleteUser(id);
