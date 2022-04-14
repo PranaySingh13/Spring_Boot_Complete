@@ -28,7 +28,7 @@ public class GlobalExceptionHandler {
 
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	@ExceptionHandler(UserNotFoundException.class)
-	public Map<String, String> resourceNotFoundExceptionHandler(UserNotFoundException ex) {
+	public Map<String, String> userNotFoundExceptionHandler(UserNotFoundException ex) {
 		Map<String, String> errorMap = new HashMap<String, String>();
 		errorMap.put("errorMessage", ex.getMessage());
 		return errorMap;
