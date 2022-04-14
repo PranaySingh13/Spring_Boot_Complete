@@ -3,6 +3,7 @@ package com.gk.service;
 import java.util.List;
 
 import com.gk.dto.UserDto;
+import com.gk.exceptions.UserNotFoundException;
 
 public interface UserService {
 	
@@ -12,7 +13,7 @@ public interface UserService {
 	
 	List<UserDto> getAllUsers();
 	
-	UserDto getUser(int id);
+	UserDto getUser(int id) throws UserNotFoundException;
 	
 	void deleteUser(Integer userId);
 

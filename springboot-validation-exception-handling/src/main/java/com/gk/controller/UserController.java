@@ -2,6 +2,8 @@ package com.gk.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.gk.dto.ApiResponse;
 import com.gk.dto.UserDto;
+import com.gk.exceptions.UserNotFoundException;
 import com.gk.service.UserService;
 
 @RestController
@@ -26,7 +29,7 @@ public class UserController {
 	private UserService service;
 
 	@PostMapping("/signup")
-	public ResponseEntity<UserDto> saveUser(@RequestBody UserDto userDto) {
+	public ResponseEntity<UserDto> saveUser(@Valid @RequestBody UserDto userDto) {
 		return new ResponseEntity<UserDto>(service.saveUser(userDto), HttpStatus.CREATED);
 	}
 
@@ -36,12 +39,12 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<UserDto> getUser(@PathVariable int id) {
+	public ResponseEntity<UserDto> getUser(@PathVariable int id) throws UserNotFoundException {
 		return ResponseEntity.ok(service.getUser(id));
 	}
 
 	@PutMapping("/edit/{id}")
-	public ResponseEntity<UserDto> updateUser(@RequestBody UserDto userDto, @PathVariable int id) {
+	public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDto, @PathVariable int id) {
 		return new ResponseEntity<UserDto>(service.updateUser(userDto, id), HttpStatus.CREATED);
 	}
 

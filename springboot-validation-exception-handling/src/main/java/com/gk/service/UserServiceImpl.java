@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.gk.dto.UserDto;
 import com.gk.entity.User;
+import com.gk.exceptions.UserNotFoundException;
 import com.gk.repo.UserRepository;
 
 @Service
@@ -50,7 +51,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto getUser(int id) {
+	public UserDto getUser(int id) throws UserNotFoundException {
 		/*
 		 * This is functioning of Spring Data JPA first just add findBy and second
 		 * append entity field in java camelCase notation in method name so that JPA
@@ -60,7 +61,10 @@ public class UserServiceImpl implements UserService {
 		 * Ex:- findByUserId, findByEmail etc.
 		 */
 		User user = repo.findByUserId(id);
-		return mapper.map(user, UserDto.class);
+		if (user != null)
+			return mapper.map(user, UserDto.class);
+		else
+			throw new UserNotFoundException("User Not Found with id: " + id);
 	}
 
 	@Override
