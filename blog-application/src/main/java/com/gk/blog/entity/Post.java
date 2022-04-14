@@ -40,10 +40,12 @@ public class Post {
 	@Column
 	private String imageName;
 	
+	//Bidirectional Mapping
 	@ManyToOne
 	@JoinColumn(name="category_id")
 	private Category category;
 	
+	//Bidirectional Mapping
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	private User user;
