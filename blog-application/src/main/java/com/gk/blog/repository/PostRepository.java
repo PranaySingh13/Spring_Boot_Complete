@@ -10,8 +10,8 @@ import com.gk.blog.entity.Post;
 import com.gk.blog.entity.User;
 
 @Repository
-public interface PostRepository extends JpaRepository<Post, Integer>{
-	
+public interface PostRepository extends JpaRepository<Post, Integer> {
+
 	/*
 	 * This is functioning of Spring Data JPA first just add findBy and second
 	 * append entity field in java camelCase notation in method name so that JPA
@@ -21,7 +21,7 @@ public interface PostRepository extends JpaRepository<Post, Integer>{
 	 * Ex:- findByUserId, findByEmail etc.
 	 */
 	List<Post> findByUser(User user);
-	
+
 	List<Post> findByCategory(Category category);
 
 }

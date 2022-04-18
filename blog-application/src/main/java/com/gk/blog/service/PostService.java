@@ -7,14 +7,18 @@ import com.gk.blog.payloads.PostDto;
 
 public interface PostService {
 
-	PostDto createPost(PostDto postDto,int userId, int categoryId) throws ResourceNotFoundException ;
+	PostDto createPost(PostDto postDto, int userId, int categoryId) throws ResourceNotFoundException;
 
-	PostDto updatePost(PostDto postDto, int postId) throws ResourceNotFoundException ;
+	PostDto updatePost(PostDto postDto, int postId) throws ResourceNotFoundException;
 
-	PostDto deletePost(int postId);
+	PostDto deletePost(int postId) throws ResourceNotFoundException;
 
 	List<PostDto> getAllPosts();
 
-	PostDto getPostById(int postId);
+	PostDto getPostById(int postId) throws ResourceNotFoundException;
+
+	List<PostDto> getPostsByCategory(int categoryId) throws ResourceNotFoundException;
+
+	List<PostDto> getPostsByUser(int userId) throws ResourceNotFoundException;
 
 }

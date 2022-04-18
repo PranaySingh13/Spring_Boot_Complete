@@ -2,6 +2,9 @@ package com.gk.blog.payloads;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,12 +16,17 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PostDto {
 
+	@NotBlank(message = "Title can not be blank !")
+	@Size(min = 10, max = 100, message = "Title should be in between length of 10 to 100 words ! ")
 	private String title;
 
+	@NotBlank(message = "Content can not be blank !")
+	@Size(min = 10, max = 10000, message = "Content should be in between length of 10 to 10000 words ! ")
 	private String content;
 
 	private Date addedDate;
 
+	@NotBlank(message = "Image Name can not be blank !")
 	private String imageName;
 
 	/*
