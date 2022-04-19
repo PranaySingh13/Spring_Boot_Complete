@@ -6,13 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gk.entity.User;
-import com.gk.repository.UserRepository;
+import com.gk.repository.UserRepositoryV3;
 
 @Service
 public class UserService {
 
+//	@Autowired
+//	private UserRepositoryV1 userRepo;
+	
 	@Autowired
-	private UserRepository userRepo;
+	private UserRepositoryV3 userRepo;
 
 	public void addUser(User user) {
 		userRepo.addUser(user);

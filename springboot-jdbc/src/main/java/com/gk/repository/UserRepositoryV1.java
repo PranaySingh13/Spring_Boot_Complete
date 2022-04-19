@@ -11,7 +11,7 @@ import com.gk.entity.User;
 import com.gk.mapper.UserMapper;
 
 @Repository
-public class UserRepository {
+public class UserRepositoryV1 {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
