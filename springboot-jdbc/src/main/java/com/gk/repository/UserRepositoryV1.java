@@ -34,9 +34,13 @@ public class UserRepositoryV1 {
 	}
 
 	private static final String INSERT_QUERY = "insert into user (id,name,age,city) values (?,?,?,?)";
+	
 	private static final String UPDATE_QUERY = "update user SET name = ?, age = ?, city = ? where id = ?";
+	
 	private static final String SELECT_QUERY = "select * from user where id = ?";
+	
 	private static final String SELECT_ALL_QUERY = "select * from user";
+	
 	private static final String DELETE_QUERY = "delete from user where id = ?";
 
 	public void addUser(User user) {
