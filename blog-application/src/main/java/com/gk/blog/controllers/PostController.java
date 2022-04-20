@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gk.blog.exceptions.ResourceNotFoundException;
+import com.gk.blog.payloads.ApiResponse;
 import com.gk.blog.payloads.PostDto;
 import com.gk.blog.service.PostService;
 
@@ -67,9 +68,10 @@ public class PostController {
 	}
 
 	@DeleteMapping("/{postId}")
-	public ResponseEntity<PostDto> deletePost(@PathVariable int postId) throws ResourceNotFoundException {
+	public ResponseEntity<ApiResponse> deletePost(@PathVariable int postId) throws ResourceNotFoundException {
 		PostDto deletePost = postService.deletePost(postId);
-		return new ResponseEntity<PostDto>(deletePost, HttpStatus.OK);
+		return new ResponseEntity<ApiResponse>(
+				new ApiResponse("Post with " + deletePost.getTitle() + " title deleted successfully", true), HttpStatus.OK);
 	}
 
 }
