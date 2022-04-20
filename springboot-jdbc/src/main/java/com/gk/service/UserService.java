@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gk.entity.User;
-import com.gk.repository.UserRepositoryV3;
+import com.gk.repository.UserRepositoryV2;
 
 @Service
 public class UserService {
 
 //	@Autowired
 //	private UserRepositoryV1 userRepo;
-	
+
 	@Autowired
-	private UserRepositoryV3 userRepo;
+	private UserRepositoryV2 userRepo;
 
 	public void addUser(User user) {
 		userRepo.addUser(user);
@@ -39,6 +39,10 @@ public class UserService {
 
 	public void deleteUser(int userId) {
 		userRepo.deleteUser(userId);
+	}
+
+	public String getUserName(int userId) {
+		return userRepo.getUserName(userId);
 	}
 
 }

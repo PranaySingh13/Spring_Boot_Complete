@@ -48,4 +48,10 @@ public class UserController {
 	public void deleteUser(@PathVariable int userId) {
 		userService.deleteUser(userId);
 	}
+
+	@GetMapping("/name/{userId}")
+	public String getUserName(@PathVariable int userId) {
+		String name = userService.getUserName(userId);
+		return name;
+	}
 }
