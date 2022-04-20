@@ -1,9 +1,12 @@
 package com.gk.repository;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -34,17 +37,47 @@ public class UserRepositoryV1 {
 	}
 
 	private static final String INSERT_QUERY = "insert into user (id,name,age,city) values (?,?,?,?)";
-	
+
 	private static final String UPDATE_QUERY = "update user SET name = ?, age = ?, city = ? where id = ?";
-	
+
 	private static final String SELECT_QUERY = "select * from user where id = ?";
-	
+
 	private static final String SELECT_ALL_QUERY = "select * from user";
-	
+
 	private static final String DELETE_QUERY = "delete from user where id = ?";
 
 	public void addUser(User user) {
 		jdbcTemplate.update(INSERT_QUERY, user.getId(), user.getName(), user.getAge(), user.getCity());
+	}
+
+	//adding users list
+	public String addUsers(List<User> users) {
+		int rowCounts[] = null;
+		try {
+			rowCounts = jdbcTemplate.batchUpdate(INSERT_QUERY, new BatchPreparedStatementSetter() {
+				/*
+				 * Spring Container calls this setValues method n times for n times insertion at
+				 * proper index location
+				 */
+				@Override
+				public void setValues(PreparedStatement ps, int index) throws SQLException {
+					ps.setInt(1, users.get(index).getId());
+					ps.setString(2, users.get(index).getName());
+					ps.setInt(3, users.get(index).getAge());
+					ps.setString(4, users.get(index).getCity());
+				}
+
+				@Override
+				public int getBatchSize() {
+					return users.size();
+				}
+			});
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return rowCounts.length + " records added";
 	}
 
 	// selecting single user

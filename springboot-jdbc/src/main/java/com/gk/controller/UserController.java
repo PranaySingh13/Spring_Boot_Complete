@@ -26,6 +26,11 @@ public class UserController {
 	private void addUser(@RequestBody User user) {
 		userService.addUser(user);
 	}
+	
+	@PostMapping("/multiple/")
+	public String addUsers(@RequestBody List<User> users) {
+		return userService.addUsers(users);
+	}
 
 	@PutMapping("/{userId}")
 	private void updateUser(@RequestBody User user, @PathVariable int userId) {
