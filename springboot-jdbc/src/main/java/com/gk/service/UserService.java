@@ -34,7 +34,7 @@ public class UserService {
 
 	// selecting list of users
 	public List<User> getAllUsers() {
-		List<User> users = userRepov1.getAllUsers();
+		List<User> users = userRepov2.getAllUsers();
 		return users;
 	}
 
