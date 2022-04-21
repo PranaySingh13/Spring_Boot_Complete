@@ -282,7 +282,20 @@ Handle validation exceptions globally for message formatting
 	}
 
 ======================
+Pagination and Sorting
+======================
+1.We need pageSize and pageNumber from URL.
+pageNumber starts from 0.
+2.We need sorting by any one field.
+http://localhost:1234/posts?pageSize=5&pageNumber=2&sortBy=title
 
+JpaRepository already extended by PaginationRepository contains all its methods.
+
+Return all entities sorted by the given options.
+Iterable<T> findAll(Sort sort);
+
+Returns a page of entities.
+Page<T> findAll(Pageable pageable);
 
 
 

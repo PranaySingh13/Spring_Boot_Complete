@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.gk.blog.entity.Category;
@@ -67,9 +70,20 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostDto> getAllPosts() {
-		List<Post> posts = postRepo.findAll();
-		List<PostDto> postDtos = posts.stream().map(post -> mapper.map(post, PostDto.class))
+	public List<PostDto> getAllPosts(Integer pageNumber, Integer pageSize) {
+
+		// Creates a new unsorted PageRequest.
+		Pageable p = PageRequest.of(pageNumber, pageSize);
+
+		/*
+		 * Returns a Page of entities meeting the paging restriction provided in the
+		 * Pageable object.
+		 */
+		Page<Post> pagePost = postRepo.findAll(p);
+
+		// Returns the page content as List.
+		List<Post> allPosts = pagePost.getContent();
+		List<PostDto> postDtos = allPosts.stream().map(post -> mapper.map(post, PostDto.class))
 				.collect(Collectors.toList());
 		return postDtos;
 	}

@@ -13,7 +13,7 @@ public interface PostService {
 
 	PostDto deletePost(int postId) throws ResourceNotFoundException;
 
-	List<PostDto> getAllPosts();
+	List<PostDto> getAllPosts(Integer pageNumber,Integer pageSize);
 
 	PostDto getPostById(int postId) throws ResourceNotFoundException;
 
