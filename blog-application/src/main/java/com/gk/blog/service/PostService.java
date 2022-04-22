@@ -1,9 +1,8 @@
 package com.gk.blog.service;
 
-import java.util.List;
-
 import com.gk.blog.exceptions.ResourceNotFoundException;
 import com.gk.blog.payloads.PostDto;
+import com.gk.blog.payloads.PostResponse;
 
 public interface PostService {
 
@@ -13,12 +12,13 @@ public interface PostService {
 
 	PostDto deletePost(int postId) throws ResourceNotFoundException;
 
-	List<PostDto> getAllPosts(Integer pageNumber,Integer pageSize);
+	PostResponse getAllPosts(Integer pageNumber, Integer pageSize);
 
 	PostDto getPostById(int postId) throws ResourceNotFoundException;
 
-	List<PostDto> getPostsByCategory(int categoryId) throws ResourceNotFoundException;
+	PostResponse getPostsByCategory(Integer pageNumber, Integer pageSize, Integer categoryId)
+			throws ResourceNotFoundException;
 
-	List<PostDto> getPostsByUser(int userId) throws ResourceNotFoundException;
+	PostResponse getPostsByUser(Integer pageNumber, Integer pageSize, Integer userId) throws ResourceNotFoundException;
 
 }

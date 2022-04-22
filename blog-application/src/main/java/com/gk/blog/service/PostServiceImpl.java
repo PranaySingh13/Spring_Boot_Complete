@@ -16,6 +16,7 @@ import com.gk.blog.entity.Post;
 import com.gk.blog.entity.User;
 import com.gk.blog.exceptions.ResourceNotFoundException;
 import com.gk.blog.payloads.PostDto;
+import com.gk.blog.payloads.PostResponse;
 import com.gk.blog.repository.CategoryRepository;
 import com.gk.blog.repository.PostRepository;
 import com.gk.blog.repository.UserRepository;
@@ -70,7 +71,7 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostDto> getAllPosts(Integer pageNumber, Integer pageSize) {
+	public PostResponse getAllPosts(Integer pageNumber, Integer pageSize) {
 
 		// Creates a new unsorted PageRequest.
 		Pageable p = PageRequest.of(pageNumber, pageSize);
@@ -85,7 +86,16 @@ public class PostServiceImpl implements PostService {
 		List<Post> allPosts = pagePost.getContent();
 		List<PostDto> postDtos = allPosts.stream().map(post -> mapper.map(post, PostDto.class))
 				.collect(Collectors.toList());
-		return postDtos;
+
+		PostResponse postResponse = new PostResponse();
+		postResponse.setContent(postDtos);
+		postResponse.setPageNumber(pagePost.getNumber());
+		postResponse.setPageSize(pagePost.getSize());
+		postResponse.setTotalElements(pagePost.getNumberOfElements());
+		postResponse.setTotalPages(pagePost.getTotalPages());
+		postResponse.setFirstPage(pagePost.isFirst());
+		postResponse.setLastPage(pagePost.isLast());
+		return postResponse;
 	}
 
 	@Override
@@ -96,23 +106,56 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public List<PostDto> getPostsByCategory(int categoryId) throws ResourceNotFoundException {
+	public PostResponse getPostsByCategory(Integer pageNumber, Integer pageSize, Integer categoryId)
+			throws ResourceNotFoundException {
+
+		Pageable p = PageRequest.of(pageNumber, pageSize);
+
 		Category category = catRepo.findById(categoryId)
 				.orElseThrow(() -> new ResourceNotFoundException("Category", "category id", categoryId));
-		List<Post> posts = postRepo.findByCategory(category);
-		List<PostDto> postDtos = posts.stream().map(post -> mapper.map(post, PostDto.class))
+
+		Page<Post> pagePost = postRepo.findByCategory(category, p);
+
+		List<Post> allPostsByCategory = pagePost.getContent();
+		List<PostDto> postDtos = allPostsByCategory.stream().map(post -> mapper.map(post, PostDto.class))
 				.collect(Collectors.toList());
-		return postDtos;
+
+		PostResponse postResponse = new PostResponse();
+		postResponse.setContent(postDtos);
+		postResponse.setPageNumber(pagePost.getNumber());
+		postResponse.setPageSize(pagePost.getSize());
+		postResponse.setTotalElements(pagePost.getNumberOfElements());
+		postResponse.setTotalPages(pagePost.getTotalPages());
+		postResponse.setFirstPage(pagePost.isFirst());
+		postResponse.setLastPage(pagePost.isLast());
+		return postResponse;
 	}
 
 	@Override
-	public List<PostDto> getPostsByUser(int userId) throws ResourceNotFoundException {
+	public PostResponse getPostsByUser(Integer pageNumber, Integer pageSize, Integer userId)
+			throws ResourceNotFoundException {
+
+		Pageable p = PageRequest.of(pageNumber, pageSize);
+
 		User user = userRepo.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "user id", userId));
-		List<Post> posts = postRepo.findByUser(user);
-		List<PostDto> postDtos = posts.stream().map(post -> mapper.map(post, PostDto.class))
+
+		Page<Post> pagePost = postRepo.findByUser(user, p);
+
+		List<Post> allPostsByUser = pagePost.getContent();
+
+		List<PostDto> postDtos = allPostsByUser.stream().map(post -> mapper.map(post, PostDto.class))
 				.collect(Collectors.toList());
-		return postDtos;
+
+		PostResponse postResponse = new PostResponse();
+		postResponse.setContent(postDtos);
+		postResponse.setPageNumber(pagePost.getNumber());
+		postResponse.setPageSize(pagePost.getSize());
+		postResponse.setTotalElements(pagePost.getNumberOfElements());
+		postResponse.setTotalPages(pagePost.getTotalPages());
+		postResponse.setFirstPage(pagePost.isFirst());
+		postResponse.setLastPage(pagePost.isLast());
+		return postResponse;
 	}
 
 }

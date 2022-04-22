@@ -1,7 +1,7 @@
 package com.gk.blog.repository;
 
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -20,8 +20,11 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 	 * 
 	 * Ex:- findByUserId, findByEmail etc.
 	 */
-	List<Post> findByUser(User user);
+	
+	// custom pagination
+	Page<Post> findByUser(User user, Pageable p);
 
-	List<Post> findByCategory(Category category);
+	// custom pagination
+	Page<Post> findByCategory(Category category, Pageable p);
 
 }

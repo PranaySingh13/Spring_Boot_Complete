@@ -296,6 +296,13 @@ Iterable<T> findAll(Sort sort);
 
 Returns a page of entities.
 Page<T> findAll(Pageable pageable);
+========================
+Modifying Post Response 
+========================
+1. Create class in payload PostResponse which consist of pageNumber,pageSize, totalElements, totalPages, firstPage, lastPage, content(List<Dto>).
+
+2. // custom pagination
+Page<Post> findByCategory(Category category, Pageable p);
 
 
 
