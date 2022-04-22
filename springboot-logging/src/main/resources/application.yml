@@ -1,0 +1,15 @@
+logging:
+  level:
+    '[org.springframework.web]': ERROR
+    '[com.gk]': DEBUG
+    '[org.springframework.boot.orm.jpa.hibernate]': DEBUG
+    
+  #Logging pattern for the console  
+  pattern:    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+  #logging pattern for file  
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:    path: C:/Users/acer/OneDrive/Desktop/spring-boot-logging/api.log
+
+server:  port: 1234    
+
+#Either use application.properties or application.yml at a time.Comment one or remove any of one file.    
