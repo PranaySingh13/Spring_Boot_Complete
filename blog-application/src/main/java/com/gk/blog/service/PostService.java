@@ -12,7 +12,7 @@ public interface PostService {
 
 	PostDto deletePost(int postId) throws ResourceNotFoundException;
 
-	PostResponse getAllPosts(Integer pageNumber, Integer pageSize);
+	PostResponse getAllPosts(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection);
 
 	PostDto getPostById(int postId) throws ResourceNotFoundException;
 
