@@ -74,6 +74,7 @@ public class PostServiceImpl implements PostService {
 	@Override
 	public PostResponse getAllPosts(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection) {
 
+		// Creating Sort Object
 		Sort sort = sortDirection.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 
 		// Creates a new unsorted PageRequest.
@@ -109,10 +110,12 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public PostResponse getPostsByCategory(Integer pageNumber, Integer pageSize, Integer categoryId)
-			throws ResourceNotFoundException {
+	public PostResponse getPostsByCategory(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection,
+			Integer categoryId) throws ResourceNotFoundException {
 
-		Pageable p = PageRequest.of(pageNumber, pageSize);
+		Sort sort = sortDirection.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+
+		Pageable p = PageRequest.of(pageNumber, pageSize, sort);
 
 		Category category = catRepo.findById(categoryId)
 				.orElseThrow(() -> new ResourceNotFoundException("Category", "category id", categoryId));
@@ -135,10 +138,12 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public PostResponse getPostsByUser(Integer pageNumber, Integer pageSize, Integer userId)
-			throws ResourceNotFoundException {
+	public PostResponse getPostsByUser(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection,
+			Integer userId) throws ResourceNotFoundException {
 
-		Pageable p = PageRequest.of(pageNumber, pageSize);
+		Sort sort = sortDirection.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
+
+		Pageable p = PageRequest.of(pageNumber, pageSize, sort);
 
 		User user = userRepo.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User", "user id", userId));

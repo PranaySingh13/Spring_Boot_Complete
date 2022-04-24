@@ -2,6 +2,8 @@ package com.gk.blog.controllers;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,8 @@ import com.gk.blog.service.PostService;
 @RequestMapping("api/post")
 public class PostController {
 
+	Logger logger = LoggerFactory.getLogger(PostController.class);
+
 	@Autowired
 	private PostService postService;
 
@@ -39,8 +43,18 @@ public class PostController {
 	public ResponseEntity<PostResponse> getPostsByCategory(
 			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
+			@RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
+			@RequestParam(value = "sortDirection", defaultValue = "asc", required = false) String sortDirection,
 			@PathVariable int categoryId) throws ResourceNotFoundException {
-		PostResponse postResponse = postService.getPostsByCategory(pageNumber, pageSize, categoryId);
+
+		logger.debug("Request{} Page Number: " + pageNumber + ", Page Size: " + pageSize + ", Sort By: " + sortBy
+				+ ", Sort Direction: " + sortDirection);
+
+		PostResponse postResponse = postService.getPostsByCategory(pageNumber, pageSize, sortBy, sortDirection,
+				categoryId);
+
+		logger.debug("Returning Post Response By Category");
+
 		return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK);
 	}
 
@@ -48,8 +62,17 @@ public class PostController {
 	public ResponseEntity<PostResponse> getPostsByUser(
 			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
 			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
+			@RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
+			@RequestParam(value = "sortDirection", defaultValue = "asc", required = false) String sortDirection,
 			@PathVariable int userId) throws ResourceNotFoundException {
-		PostResponse postResponse = postService.getPostsByUser(pageNumber, pageSize, userId);
+
+		logger.debug("Request{} Page Number: " + pageNumber + ", Page Size: " + pageSize + ", Sort By: " + sortBy
+				+ ", Sort Direction: " + sortDirection);
+
+		PostResponse postResponse = postService.getPostsByUser(pageNumber, pageSize, sortBy, sortDirection, userId);
+
+		logger.debug("Returning Post Response By User");
+
 		return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK);
 	}
 
@@ -65,7 +88,14 @@ public class PostController {
 			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
 			@RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
 			@RequestParam(value = "sortDirection", defaultValue = "asc", required = false) String sortDirection) {
+
+		logger.debug("Request{} Page Number: " + pageNumber + ", Page Size: " + pageSize + ", Sort By: " + sortBy
+				+ ", Sort Direction: " + sortDirection);
+
 		PostResponse postResponse = postService.getAllPosts(pageNumber, pageSize, sortBy, sortDirection);
+
+		logger.debug("Returning Post Response");
+
 		return new ResponseEntity<PostResponse>(postResponse, HttpStatus.OK);
 	}
 

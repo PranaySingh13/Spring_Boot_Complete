@@ -20,7 +20,7 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 	 * 
 	 * Ex:- findByUserId, findByEmail etc.
 	 */
-	
+
 	// custom pagination
 	Page<Post> findByUser(User user, Pageable p);
 

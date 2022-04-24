@@ -16,9 +16,10 @@ public interface PostService {
 
 	PostDto getPostById(int postId) throws ResourceNotFoundException;
 
-	PostResponse getPostsByCategory(Integer pageNumber, Integer pageSize, Integer categoryId)
-			throws ResourceNotFoundException;
+	PostResponse getPostsByCategory(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection,
+			Integer categoryId) throws ResourceNotFoundException;
 
-	PostResponse getPostsByUser(Integer pageNumber, Integer pageSize, Integer userId) throws ResourceNotFoundException;
+	PostResponse getPostsByUser(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection,
+			Integer userId) throws ResourceNotFoundException;
 
 }
