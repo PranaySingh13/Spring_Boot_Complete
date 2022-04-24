@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.gk.blog.entity.Category;
@@ -71,10 +72,12 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public PostResponse getAllPosts(Integer pageNumber, Integer pageSize) {
+	public PostResponse getAllPosts(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection) {
+
+		Sort sort = sortDirection.equalsIgnoreCase("asc") ? Sort.by(sortBy).ascending() : Sort.by(sortBy).descending();
 
 		// Creates a new unsorted PageRequest.
-		Pageable p = PageRequest.of(pageNumber, pageSize);
+		Pageable p = PageRequest.of(pageNumber, pageSize, sort);
 
 		/*
 		 * Returns a Page of entities meeting the paging restriction provided in the
