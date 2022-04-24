@@ -35,7 +35,7 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 	 * We include our wild cards in the query we supply. The @Param annotation is
 	 * important here because we're using a named parameter.
 	 */
-	@Query("SELECT p FROM Post p WHERE p.title LIKE %:keywords%")
-	List<Post> searchPostByTitleKeyword(@Param("keywords") String keywords);
+	@Query("SELECT p FROM Post p WHERE p.title LIKE %:keyword%")
+	List<Post> searchPostByTitleKeyword(@Param("keyword") String keyword);
 
 }
