@@ -1,5 +1,7 @@
 package com.gk.blog.service;
 
+import java.util.List;
+
 import com.gk.blog.exceptions.ResourceNotFoundException;
 import com.gk.blog.payloads.PostDto;
 import com.gk.blog.payloads.PostResponse;
@@ -21,5 +23,7 @@ public interface PostService {
 
 	PostResponse getPostsByUser(Integer pageNumber, Integer pageSize, String sortBy, String sortDirection,
 			Integer userId) throws ResourceNotFoundException;
+
+	List<PostDto> searchPostByTitleKeyword(String keyword);
 
 }

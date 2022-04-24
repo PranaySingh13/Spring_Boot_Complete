@@ -1,5 +1,7 @@
 package com.gk.blog.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -112,6 +114,12 @@ public class PostController {
 		return new ResponseEntity<ApiResponse>(
 				new ApiResponse("Post with " + deletePost.getTitle() + " title deleted successfully", true),
 				HttpStatus.OK);
+	}
+
+	@GetMapping("/posts/search/{keywords}")
+	public ResponseEntity<List<PostDto>> searchPostByTitleKeyword(@PathVariable String keywords) {
+		List<PostDto> searchedPosts = postService.searchPostByTitleKeyword(keywords);
+		return new ResponseEntity<List<PostDto>>(searchedPosts, HttpStatus.OK);
 	}
 
 }
