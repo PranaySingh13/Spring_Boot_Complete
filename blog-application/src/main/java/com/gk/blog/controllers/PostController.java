@@ -30,7 +30,7 @@ import com.gk.blog.service.PostService;
 @RequestMapping("api/post")
 public class PostController {
 
-	Logger logger = LoggerFactory.getLogger(PostController.class);
+	public static final Logger logger = LoggerFactory.getLogger(PostController.class);
 
 	@Autowired
 	private PostService postService;
