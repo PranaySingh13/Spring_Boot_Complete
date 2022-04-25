@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gk.blog.config.AppConstants;
 import com.gk.blog.exceptions.ResourceNotFoundException;
 import com.gk.blog.payloads.ApiResponse;
 import com.gk.blog.payloads.PostDto;
@@ -43,10 +44,10 @@ public class PostController {
 
 	@GetMapping("/category/{categoryId}")
 	public ResponseEntity<PostResponse> getPostsByCategory(
-			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
-			@RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
-			@RequestParam(value = "sortDirection", defaultValue = "asc", required = false) String sortDirection,
+			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+			@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+			@RequestParam(value = "sortDirection", defaultValue = AppConstants.SORT_DIRECTION, required = false) String sortDirection,
 			@PathVariable int categoryId) throws ResourceNotFoundException {
 
 		logger.debug("Request{} Page Number: " + pageNumber + ", Page Size: " + pageSize + ", Sort By: " + sortBy
@@ -62,10 +63,10 @@ public class PostController {
 
 	@GetMapping("/user/{userId}")
 	public ResponseEntity<PostResponse> getPostsByUser(
-			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
-			@RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
-			@RequestParam(value = "sortDirection", defaultValue = "asc", required = false) String sortDirection,
+			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+			@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+			@RequestParam(value = "sortDirection", defaultValue = AppConstants.SORT_DIRECTION, required = false) String sortDirection,
 			@PathVariable int userId) throws ResourceNotFoundException {
 
 		logger.debug("Request{} Page Number: " + pageNumber + ", Page Size: " + pageSize + ", Sort By: " + sortBy
@@ -86,10 +87,10 @@ public class PostController {
 
 	@GetMapping("/all")
 	public ResponseEntity<PostResponse> getAllPosts(
-			@RequestParam(value = "pageNumber", defaultValue = "0", required = false) Integer pageNumber,
-			@RequestParam(value = "pageSize", defaultValue = "10", required = false) Integer pageSize,
-			@RequestParam(value = "sortBy", defaultValue = "postId", required = false) String sortBy,
-			@RequestParam(value = "sortDirection", defaultValue = "asc", required = false) String sortDirection) {
+			@RequestParam(value = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
+			@RequestParam(value = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
+			@RequestParam(value = "sortBy", defaultValue = AppConstants.SORT_BY, required = false) String sortBy,
+			@RequestParam(value = "sortDirection", defaultValue = AppConstants.SORT_DIRECTION, required = false) String sortDirection) {
 
 		logger.debug("Request{} Page Number: " + pageNumber + ", Page Size: " + pageSize + ", Sort By: " + sortBy
 				+ ", Sort Direction: " + sortDirection);
