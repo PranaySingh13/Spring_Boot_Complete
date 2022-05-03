@@ -1,9 +1,13 @@
 package com.gk.blog.payloads;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.gk.blog.entity.Comment;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -37,5 +41,7 @@ public class PostDto {
 	private CategoryDto category;
 
 	private UserDto user;
+	
+	private List<Comment> comments=new ArrayList<>();
 
 }
