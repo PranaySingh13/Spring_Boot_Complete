@@ -1,14 +1,20 @@
 package com.gk.blog.controllers;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,12 +24,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gk.blog.config.AppConstants;
 import com.gk.blog.exceptions.ResourceNotFoundException;
 import com.gk.blog.payloads.ApiResponse;
 import com.gk.blog.payloads.PostDto;
 import com.gk.blog.payloads.PostResponse;
+import com.gk.blog.service.FileService;
 import com.gk.blog.service.PostService;
 
 @RestController
@@ -34,6 +42,12 @@ public class PostController {
 
 	@Autowired
 	private PostService postService;
+
+	@Autowired
+	private FileService fileService;
+
+	@Value("${project.files}")
+	private String path;
 
 	@PostMapping("/user/{userId}/category/{categoryId}")
 	public ResponseEntity<PostDto> createPost(@Valid @RequestBody PostDto postDto, @PathVariable int userId,
@@ -121,6 +135,25 @@ public class PostController {
 	public ResponseEntity<List<PostDto>> searchPostByTitleKeyword(@PathVariable String keyword) {
 		List<PostDto> searchedPosts = postService.searchPostByTitleKeyword(keyword);
 		return new ResponseEntity<List<PostDto>>(searchedPosts, HttpStatus.OK);
+	}
+
+	// post image upload
+	@PostMapping("/file/upload/{postId}")
+	public ResponseEntity<PostDto> uploadPostFile(@Valid @RequestParam("file") MultipartFile file, @PathVariable int postId)
+			throws IOException, ResourceNotFoundException {
+		PostDto postDto = postService.getPostById(postId);
+		String fileName = fileService.fileUpload(path, file);
+		postDto.setImageName(fileName);
+		PostDto updatePostDto = postService.updatePost(postDto, postId);
+		return new ResponseEntity<PostDto>(updatePostDto, HttpStatus.OK);
+	}
+	
+	// post image download
+	@GetMapping(value = "/file/download/{fileName}", produces = MediaType.ALL_VALUE)
+	public void fileDownload(@PathVariable String fileName, HttpServletResponse response) throws IOException {
+		InputStream resource = fileService.fileDownload(path, fileName);
+		response.setContentType(MediaType.ALL_VALUE);
+		StreamUtils.copy(resource, response.getOutputStream());
 	}
 
 }
