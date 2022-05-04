@@ -14,6 +14,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CommentDto {
 
+	private int id;
+
 	@NotBlank(message = "Content can not be blank !")
 	@Size(min = 10, max = 10000, message = "Content should be in between length of 10 to 10000 words ! ")
 	private String content;

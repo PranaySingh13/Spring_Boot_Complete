@@ -7,8 +7,6 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.gk.blog.entity.Comment;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -41,7 +39,7 @@ public class PostDto {
 	private CategoryDto category;
 
 	private UserDto user;
-	
-	private List<Comment> comments=new ArrayList<>();
+
+	private List<CommentDto> comments = new ArrayList<>();
 
 }
