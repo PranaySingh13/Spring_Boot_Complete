@@ -304,9 +304,63 @@ Modifying Post Response
 2. // custom pagination
 Page<Post> findByCategory(Category category, Pageable p);
 
+===========================
+Spring Basic Authentication
+===========================
+1.Adding spring-starter-security dependency in pom.xml which will apply web login form based authentication(which is not practically used).
 
+2. We create a SecurityConfig class which extends WebSecurityConfigurerAdapter from which we can Override its method to configure the HttpSecurity to implement http based basic authentication.
 
+3.Create class CustomUserDetailService which implements UserDetailsService which is Core interface which loads user-specific data. It is used throughout the framework as a user DAO and is the strategy used by the DaoAuthenticationProvider from which we can Override its method loadUserByUsername to provides core user information with returning UserDetails object.
+To loadUserByUsername, create a method in UserRepository which will find username in our case findByUserEmail.
 
+4. To get the roles, create role entity and mapped list of roles in user entity. 
+
+5.Implements User with UserDetails to override its methods to provides core user information consist of Collection of roles of granted authorities.
+
+6. Create a Bean of PasswordEncoder in SecurityConfig class to get the BCryprPasswordEncoder.
+
+===========================
+Spring JWT Authentication
+===========================
+1. JWT stands for JSON Web Token.
+2. JWT is mostly used for securing Rest APIs.
+3. Best way to communicate security between client and server securely.
+4. JWT follows a stateless authentication mechanism(Imp point) that is it will not store any data on server.
+
+Architecture of JWT
+JWT forms with adding three parts:-
+1.1 Header:- It consisit of Algorithm which is used+ Type of token.
+1.2 Payload:- Information of claims(Data)
+1.3 Signature:- encoded header+encoded payload+key
+JWT:- Header.Payload.Signature
+
+=============================
+8 Steps to implement JWT Auth
+=============================
+1.Add dependency(io.jsonwebtoken) in pom.xml.
+
+2.Create JWTAuthenticationEntryPoint class which implements AuthenticationEntryPoint and override its methods which get called and generate exception when unauthorised user access our secured apis.
+
+3.Create JWTTokenHelper class.
+
+4.Create JWTAuthenticationFilter class which extends OnceRequestFilter and we are doing following operations:-
+	4.1 Get JWT Token from request.
+	4.2 Validate Token.
+	4.3 Get User from Token.
+	4.4 Load user associated with Token.
+	4.5 Set Spring security that is set authentication.
+
+5.Create JWTAuthResponse class consist of token and user details.
+
+6.Configure JWT in spring security config.
+
+7.Create Login API to return Token.
+
+8.Test the application.
+	8.1 Run http://localhost:1234/api/auth/login with passing request body containing username and password it will generate token in response.
+	8.2 For testing apis add Authorization as HEADER_STRING in key of header and add Bearer<space><token> in value of header where Bearer<space> 		is TOKEN_PREFIX.
+	8.3 If the TOKEN_PREFIX is not present or wrong comparing as in application,user can not access apis.
 
 
 

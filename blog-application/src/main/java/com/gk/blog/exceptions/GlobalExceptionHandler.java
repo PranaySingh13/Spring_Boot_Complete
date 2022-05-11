@@ -26,11 +26,18 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
 	}
 
+	@ExceptionHandler(UserNotfoundExcxeption.class)
+	public ResponseEntity<ApiResponse> userNotFoundExceptionHandler(UserNotfoundExcxeption ex) {
+		String message = ex.getMessage();
+		ApiResponse apiResponse = new ApiResponse(message, false);
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
+	}
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Map<String, String>> handleMethodArgsNotValidException(MethodArgumentNotValidException ex) {
 		Map<String, String> response = new HashMap<>();
 		ex.getBindingResult().getAllErrors().forEach(error -> {
-			//To get the fieldName, Typecast error into fieldError.
+			// To get the fieldName, Typecast error into fieldError.
 			String fieldName = ((FieldError) error).getField();
 			String message = error.getDefaultMessage();
 
