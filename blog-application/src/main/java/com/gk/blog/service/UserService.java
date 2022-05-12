@@ -13,7 +13,7 @@ public interface UserService {
 
 	UserDto updateUser(UserDto user, Integer userId) throws ResourceNotFoundException;
 
-	void deleteUser(Integer userId);
+	UserDto deleteUser(Integer userId)throws ResourceNotFoundException;
 
 	List<UserDto> getAllUsers();
 

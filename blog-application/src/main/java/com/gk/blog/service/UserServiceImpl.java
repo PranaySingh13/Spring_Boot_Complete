@@ -53,10 +53,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteUser(Integer userId) {
-		// User user=userRepo.findById(userId).orElseThrow(()->new
-		// ResourceNotFoundException("User", "user id", userId));
-		userRepo.deleteById(userId);// Deletes the entity with the given id.
+	public UserDto deleteUser(Integer userId) throws ResourceNotFoundException {
+		User user = userRepo.findById(userId)
+				.orElseThrow(() -> new ResourceNotFoundException("User", "user id", userId));
+		userRepo.delete(user);
+		return modelMapper.map(user, UserDto.class);
 	}
 
 	@Override

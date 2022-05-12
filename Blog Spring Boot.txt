@@ -359,8 +359,14 @@ JWT:- Header.Payload.Signature
 
 8.Test the application.
 	8.1 Run http://localhost:1234/api/auth/login with passing request body containing username and password it will generate token in response.
-	8.2 For testing apis add Authorization as HEADER_STRING in key of header and add Bearer<space><token> in value of header where Bearer<space> 		is TOKEN_PREFIX.
+	8.2 For testing apis add Authorization as HEADER_STRING in key of header and add Bearer<space><token> in value of header where Bearer<space> 			is TOKEN_PREFIX.
 	8.3 If the TOKEN_PREFIX is not present or wrong comparing as in application,user can not access apis.
+
+=========================
+Role Specific API Access
+=========================
+1.Add @EnableGlobalMethodSecurity in SecurityConfig class by which we can apply security on every method apis with the help of @PreAuthorize and providing it with role specific @PreAuthorize("hasRole('ADMIN')") or @PreAuthorize("hasRole('USER')") etc.
+2.The @PreAuthorize annotation checks the given expression before entering the method, whereas the @PostAuthorize annotation verifies it after the execution of the method and could alter the result.
 
 
 

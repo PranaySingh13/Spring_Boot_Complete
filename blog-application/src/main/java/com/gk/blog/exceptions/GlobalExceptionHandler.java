@@ -26,11 +26,18 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
 	}
 
-	@ExceptionHandler(UserNotfoundExcxeption.class)
-	public ResponseEntity<ApiResponse> userNotFoundExceptionHandler(UserNotfoundExcxeption ex) {
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<ApiResponse> userNotFoundExceptionHandler(UserNotFoundException ex) {
 		String message = ex.getMessage();
 		ApiResponse apiResponse = new ApiResponse(message, false);
 		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler(ApiException.class)
+	public ResponseEntity<ApiResponse> apiExceptionHandler(ApiException ex) {
+		String message = ex.getMessage();
+		ApiResponse apiResponse = new ApiResponse(message, false);
+		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)
