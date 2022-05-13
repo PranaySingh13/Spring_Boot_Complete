@@ -10,6 +10,6 @@ import com.gk.blog.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
 	
-	Optional<User> findByUserEmail(String email);
+	Optional<User> findByEmail(String email);
 
 }
