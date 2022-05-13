@@ -368,9 +368,33 @@ Role Specific API Access
 1.Add @EnableGlobalMethodSecurity in SecurityConfig class by which we can apply security on every method apis with the help of @PreAuthorize and providing it with role specific @PreAuthorize("hasRole('ADMIN')") or @PreAuthorize("hasRole('USER')") etc.
 2.The @PreAuthorize annotation checks the given expression before entering the method, whereas the @PostAuthorize annotation verifies it after the execution of the method and could alter the result.
 
+HasRole()
 
+When using the hasRole() security expression, the prefix ROLE_ is skipped. This is because Spring Framework will add the prefix automatically for us.
 
+@PreAuthorize("hasRole('ADMIN')")
 
+HasAnyRole() 
+
+When you need to support multiple roles, you can use the hasAnyRole() expression.
+
+@PreAuthorize("hasAnyRole('ADMIN','DB-ADMIN')")
+
+HasAuthority()
+
+@PreAuthorize annotation can also be used with hasAuthority(). When using hasAuthority() expression, you will need to provide a complete authority name.
+
+@PreAuthorize("hasAuthority('DELETE_AUTHORITY')")
+
+or
+
+@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+
+HasAnyAuthority()
+
+When you need to support multiple authorities, hasAnyAuthority() expression can be used.
+
+@PreAuthorize("hasAnyAuthority('DELETE_AUTHORITY', 'UPDATE_AUTHORITY')")
 
 
 
