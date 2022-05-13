@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 
+	@PreAuthorize("hasAnyAuthority('ADMIN','USER')")
 	@PostMapping("/user/{userId}/post/{postId}")
 	public ResponseEntity<CommentDto> createComment(@Valid @RequestBody CommentDto commentDto,
 			@PathVariable Integer userId, @PathVariable Integer postId) throws ResourceNotFoundException {
@@ -35,6 +37,7 @@ public class CommentController {
 		return new ResponseEntity<CommentDto>(createdComment, HttpStatus.CREATED);
 	}
 
+	@PreAuthorize("hasAnyAuthority('ADMIN','USER')")
 	@DeleteMapping("/{commentId}")
 	public ResponseEntity<ApiResponse> deleteComment(@PathVariable Integer commentId) throws ResourceNotFoundException {
 		CommentDto deletedComment = commentService.deleteComment(commentId);
@@ -43,6 +46,7 @@ public class CommentController {
 				HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasAnyAuthority('ADMIN','USER')")
 	@PutMapping("/{commentId}")
 	public ResponseEntity<CommentDto> updateComment(@Valid @RequestBody CommentDto commentDto,
 			@PathVariable Integer commentId) throws ResourceNotFoundException {
@@ -50,12 +54,14 @@ public class CommentController {
 		return new ResponseEntity<CommentDto>(updatedComment, HttpStatus.CREATED);
 	}
 
+	// Authorization Handled in SecurityConfig.class for get mapping
 	@GetMapping("/all")
 	public ResponseEntity<List<CommentDto>> getAllComments() {
 		List<CommentDto> allComments = commentService.getAllComments();
 		return new ResponseEntity<List<CommentDto>>(allComments, HttpStatus.OK);
 	}
 
+	// Authorization Handled in SecurityConfig.class for get mapping
 	@GetMapping("/all/post/{postId}")
 	public ResponseEntity<List<CommentDto>> getCommentsByPost(@PathVariable int postId)
 			throws ResourceNotFoundException {
@@ -63,6 +69,7 @@ public class CommentController {
 		return new ResponseEntity<List<CommentDto>>(allCommentsByPost, HttpStatus.OK);
 	}
 
+	// Authorization Handled in SecurityConfig.class for get mapping
 	@GetMapping("/all/user/{userId}")
 	public ResponseEntity<List<CommentDto>> getCommentsByUser(@PathVariable int userId)
 			throws ResourceNotFoundException {

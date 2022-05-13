@@ -29,31 +29,34 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@PostMapping("/")
 	public ResponseEntity<UserDto> createUser(@Valid @RequestBody UserDto userDto) {
 		return new ResponseEntity<UserDto>(userService.createUser(userDto), HttpStatus.CREATED);
 	}
 
+	@PreAuthorize("hasAnyAuthority('ADMIN','USER')")
 	@PutMapping("/{userId}")
 	public ResponseEntity<UserDto> updateUser(@Valid @RequestBody UserDto userDto, @PathVariable Integer userId)
 			throws ResourceNotFoundException {
 		return new ResponseEntity<UserDto>(userService.updateUser(userDto, userId), HttpStatus.OK);
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	@DeleteMapping("/{userId}")
 	public ResponseEntity<ApiResponse> deleteUser(@PathVariable Integer userId) throws ResourceNotFoundException {
 		UserDto deletedUser = userService.deleteUser(userId);
 		return new ResponseEntity<ApiResponse>(
-				new ApiResponse("User " + deletedUser.getUserEmail() + " deleted successfully", true), HttpStatus.OK);
+				new ApiResponse("User " + deletedUser.getName() + " deleted successfully", true), HttpStatus.OK);
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	// Authorization Handled in SecurityConfig.class for get mapping
 	@GetMapping("/")
 	public ResponseEntity<List<UserDto>> getAllUsers() {
 		return ResponseEntity.ok(userService.getAllUsers());
 	}
 
+	// Authorization Handled in SecurityConfig.class for get mapping
 	@GetMapping("/user/{userId}")
 	public ResponseEntity<UserDto> getUserById(@PathVariable Integer userId) throws ResourceNotFoundException {
 		return ResponseEntity.ok(userService.getUserById(userId));
