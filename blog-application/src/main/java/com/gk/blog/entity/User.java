@@ -43,16 +43,16 @@ public class User implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int userId;
-
-	@Column(name = "user_name", nullable = false, length = 100)
-	private String userName;
+	private int id;
 
 	@Column
-	private String userEmail;
+	private String name;
 
 	@Column
-	private String userPassword;
+	private String email;
+
+	@Column
+	private String password;
 
 	@Column
 	private String about;
@@ -64,7 +64,7 @@ public class User implements UserDetails {
 	private List<Comment> comments = new ArrayList<>();
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "userId"), inverseJoinColumns = @JoinColumn(name = "role_fk", referencedColumnName = "id"))
+	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_fk", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_fk", referencedColumnName = "id"))
 	private List<Role> roles = new ArrayList<>();
 
 	@Override
@@ -76,12 +76,12 @@ public class User implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return this.userPassword;
+		return this.password;
 	}
 
 	@Override
 	public String getUsername() {
-		return this.userEmail;
+		return this.email;
 	}
 
 	@Override
