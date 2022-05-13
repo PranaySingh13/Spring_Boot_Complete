@@ -22,7 +22,7 @@ public class CustomUserDetailService implements UserDetailsService {
 
 		User user = null;
 		try {
-			user = userRepo.findByUserEmail(username)
+			user = userRepo.findByEmail(username)
 					.orElseThrow(() -> new UserNotFoundException("User", "email ", username));
 		} catch (UserNotFoundException e) {
 			// TODO Auto-generated catch block

@@ -16,6 +16,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.gk.blog.config.AppConstants;
+
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
@@ -30,23 +32,20 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 	@Autowired
 	private JWTTokenHelper jwtTokenHelper;
 
-	public static final String TOKEN_PREFIX = "Bearer ";
-	public static final String HEADER_STRING = "Authorization";
-
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 
 		// 1. Get Token
-		String requestToken = request.getHeader(HEADER_STRING);
+		String requestToken = request.getHeader(AppConstants.HEADER_STRING);
 		String usernameFromToken = null;
 		String token = null;
 
 		// 2. check request token is not null and starts with token prefix
-		if (requestToken != null && requestToken.startsWith(TOKEN_PREFIX)) {
+		if (requestToken != null && requestToken.startsWith(AppConstants.TOKEN_PREFIX)) {
 
 			// 3. get token without prefix
-			token = requestToken.replace(TOKEN_PREFIX, "");
+			token = requestToken.replace(AppConstants.TOKEN_PREFIX, "");
 
 			// 4. get username from token with the helper
 			try {
