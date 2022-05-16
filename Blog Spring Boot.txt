@@ -396,6 +396,17 @@ When you need to support multiple authorities, hasAnyAuthority() expression can 
 
 @PreAuthorize("hasAnyAuthority('DELETE_AUTHORITY', 'UPDATE_AUTHORITY')")
 
+=================================
+Documentation APIs using Swagger
+=================================
+1. Add dependency for swagger
+<!-- https://mvnrepository.com/artifact/io.springfox/springfox-boot-starter -->
+<dependency>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-boot-starter</artifactId>
+    <version>3.0.0</version>
+</dependency>
+
 
 
 

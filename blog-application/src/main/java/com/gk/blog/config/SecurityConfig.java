@@ -14,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.gk.blog.security.CustomUserDetailService;
 import com.gk.blog.security.JWTAuthenticationEntryPoint;
@@ -22,7 +23,17 @@ import com.gk.blog.security.JWTAuthenticationFilter;
 @Configuration
 @EnableWebSecurity//It tells Spring Security that it is a web security configuration.
 @EnableGlobalMethodSecurity(prePostEnabled = true) //we can apply security on every method apis.
+@EnableWebMvc
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	public static final String[] PUBLIC_URLS= {
+			"/api/auth/**",
+			"/v3/api-docs",
+			"/v2/api-docs",
+			"/swagger-resources/**",
+			"/swagger-ui/**",
+			"/webjars/**"
+	};
 
 	@Autowired
 	private CustomUserDetailService customUserDetailService;
@@ -36,8 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.csrf()
 		.disable()
 		.authorizeHttpRequests()
-		.antMatchers("/api/auth/**").permitAll()//making login and register url public
-		.antMatchers(HttpMethod.GET).permitAll()//making All Get apis url public 
+		.antMatchers(PUBLIC_URLS).permitAll()//making login and register url public
+		.antMatchers(HttpMethod.GET).permitAll()//making All Get apis url public
 		.anyRequest()
 		.authenticated()
 		.and()
