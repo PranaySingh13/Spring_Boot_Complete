@@ -407,6 +407,12 @@ Documentation APIs using Swagger
     <version>3.0.0</version>
 </dependency>
 
+2. Creating Swagger Config class for creating API Documentation.
+
+==========================================
+Swagger Configuration with Spring Security
+==========================================
+1. Two methods are need to implement in the docket in swagger config class .securityContexts(securityContexts()) and .securitySchemes(apiKeys());
 
 
 
