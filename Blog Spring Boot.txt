@@ -414,8 +414,26 @@ Swagger Configuration with Spring Security
 ==========================================
 1. Two methods are need to implement in the docket in swagger config class .securityContexts(securityContexts()) and .securitySchemes(apiKeys());
 
+=================================
+Deploying Blog Application on AWS
+=================================
+1. Some AWS Common Services
 
+Amazon EC2
+Amazon Elastic Beanstalk
+Amazon RDS
+Amazon Route 53
+Amazon S3
 
+2. Managing different Environments with creating environment specific application-env.properties file .
+3. common properties should lie only in application.properties file.
+4. Setting up mysql on AWS using RDS Amazon Service.
+5. Setting up the mysql production database that is connected with AWS and config application-prod.properties.
+6. Creating jar file of our spring boot blog application
+7. To test the jar file from command prompt
+go to target folder
+java -jar blog-application-0.0.1.jar
+8.
 
 
 
