@@ -440,4 +440,4 @@ java -jar blog-application-0.0.1.jar
 8. Change the port number to 5000 in application.properties file as Amazon Elastic Beanstalk runs default on 5000 port and build the project again.
 9. Deploy the spring boot application jar file which is in target folder to Amazon Elastic Beanstalk.
 
-Deployed Link:- http://blogapp-env.eba-x2kazq8n.ap-south-1.elasticbeanstalk.com/swagger-ui/index.
+Deployed Link:- http://blogapp-env.eba-x2kazq8n.ap-south-1.elasticbeanstalk.com/swagger-ui/index.html
