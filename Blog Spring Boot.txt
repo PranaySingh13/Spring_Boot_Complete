@@ -419,11 +419,15 @@ Deploying Blog Application on AWS
 =================================
 1. Some AWS Common Services
 
-Amazon EC2
-Amazon Elastic Beanstalk
-Amazon RDS
-Amazon Route 53
-Amazon S3
+Amazon EC2:- Create instance for Virtual Servers in the Cloud.
+
+Amazon Elastic Beanstalk:- Amazon Elastic Beanstalk is an easy-to-use service for deploying and scaling web applications and services.
+
+Amazon RDS:- Easily set up, operate, and scale a relational database in the cloud.
+
+Amazon Route 53:-  Registering a domain, configuring DNS, or using another Route 53 feature.To allow testing, a Route 53 hosted zone that is deleted within 12 hours of creation is not charged.
+
+Amazon S3:- Store and retrieve any amount of data from anywhere.
 
 2. Managing different Environments with creating environment specific application-env.properties file .
 3. common properties should lie only in application.properties file.
@@ -433,104 +437,7 @@ Amazon S3
 7. To test the jar file from command prompt
 go to target folder
 java -jar blog-application-0.0.1.jar
-8.
+8. Change the port number to 5000 in application.properties file as Amazon Elastic Beanstalk runs default on 5000 port and build the project again.
+9. Deploy the spring boot application jar file which is in target folder to Amazon Elastic Beanstalk.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Deployed Link:- http://blogapp-env.eba-x2kazq8n.ap-south-1.elasticbeanstalk.com/swagger-ui/index.
