@@ -29,6 +29,7 @@ C. Spring Core Related Annotations
 	2.@Bean: It is a method-level annotation. It is an alternative of XML <bean> tag. It tells the method to produce a bean to be managed by Spring Container.
 
 	3.@Autowired: Spring provides annotation-based auto-wiring by providing @Autowired annotation. It is used to autowire spring bean on setter methods, instance variable, and constructor. When we use @Autowired annotation, the spring container auto-wires the bean by matching data-type.
+	Autowiring feature of spring framework enables you to inject the object dependency implicitly. It internally uses setter or constructor injection.
 
 	4.@Qualifier: There may be a situation when you create more than one bean of the same type and want to wire only one of them with a property. In such cases, @Qualifier indicates specific bean should be autowired when there are multiple bean of the same type.
 
